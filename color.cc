@@ -16,16 +16,16 @@ Color::Color(float r, float g, float b)
 { }
 
 /* Element mutators */
-void Color::set_red(float red) { r = red; }
-void Color::set_blue(float blue) { b = blue; }
-void Color::set_green(float green) { g = green; }
+Color & Color::set_red(float red) { r = red; return *this; }
+Color & Color::set_green(float green) { g = green; return *this; }
+Color & Color::set_blue(float blue) { b = blue; return *this; }
 
 /* Arithmetic & Compound Assignment Operators */
 Color & Color::operator+=(const Color &rhs)
 {
   r += rhs.r;
-  b += rhs.b;
   g += rhs.g;
+  b += rhs.b;
   
   return *this;
 }
@@ -33,8 +33,8 @@ Color & Color::operator+=(const Color &rhs)
 Color & Color::operator-=(const Color &rhs)
 {
   r -= rhs.r;
-  b -= rhs.b;
   g -= rhs.g;
+  b -= rhs.b;
   
   return *this;
 }
@@ -42,8 +42,8 @@ Color & Color::operator-=(const Color &rhs)
 Color & Color::operator*=(const Color &rhs)
 {
   r *= rhs.r;
-  b *= rhs.b;
   g *= rhs.g;
+  b *= rhs.b;
   
   return *this;
 }
@@ -57,21 +57,21 @@ const Color Color::operator+(const Color &other) const
 const Color Color::operator-(const Color &other) const
 {
   Color result = *this;
-  return result += other;
+  return result -= other;
 }
 
 const Color Color::operator*(const Color &other) const
 {
   Color result = *this;
-  return result += other;
+  return result *= other;
 }
 
 /* Scalar Mult/Div */
 Color & Color::operator*=(const float &s)
 {
   r *= s;
-  b *= s;
   g *= s;
+  b *= s;
   
   return *this;
 }
@@ -79,8 +79,8 @@ Color & Color::operator*=(const float &s)
 Color & Color::operator/=(const float &s)
 {
   r /= s;
-  b /= s;
   g /= s;
+  b /= s;
   
   return *this;
 }
@@ -101,6 +101,15 @@ const Color operator/(const Color &v, const float &s)
 {
   Color result = v;
   return result /= s;
+}
+
+Color & Color::clamp()
+{
+  r = (r < 0) ? 0 : ((r > 1) ? 1 : r);
+  g = (g < 0) ? 0 : ((g > 1) ? 1 : g);
+  b = (b < 0) ? 0 : ((b > 1) ? 1 : b);
+
+  return *this;
 }
 
 /* Print operator */

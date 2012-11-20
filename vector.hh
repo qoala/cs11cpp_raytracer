@@ -58,8 +58,8 @@ class Vector
   const E norm() const;
   const E norm_sq() const;
 
-  /* Normalize Vector */
-  const Vector<E, DIM> normalize() const;
+  /* Normalize this Vector */
+  Vector<E, DIM> & normalize();
 
 };
 
@@ -226,9 +226,9 @@ const E Vector<E, DIM>::norm_sq() const
 
 /* Normalize Vector */
 template <typename E, unsigned int DIM>
-const Vector<E, DIM> Vector<E, DIM>::normalize() const
+Vector<E, DIM> & Vector<E, DIM>::normalize()
 {
-  return *this / this->norm();
+  return *this /=this->norm();
 }
 
 /* Dot Product */
@@ -249,7 +249,7 @@ const Vector<E, 3> cross(const Vector<E, 3> &v1, const Vector<E, 3> &v2)
     Vector<E, 3> result;
 
     result[0] = (v1[1] * v2[2]) - (v1[2] * v2[1]);
-    result[1] = (v1[0] * v2[2]) - (v1[2] * v2[0]);
+    result[1] = (v1[2] * v2[0]) - (v1[0] * v2[2]);
     result[2] = (v1[0] * v2[1]) - (v1[1] * v2[0]);
 
     return result;

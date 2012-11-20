@@ -32,13 +32,13 @@ class Color
 
   /* Element accessors */
   float get_red() const;
-  float get_blue() const;
   float get_green() const;
+  float get_blue() const;
 
-  /* Element mutators */
-  void set_red(float red);
-  void set_blue(float blue);
-  void set_green(float green);
+  /* Element mutators, return *this for chaining */
+  Color & set_red(float red);
+  Color & set_green(float green);
+  Color & set_blue(float blue);
 
   /* Arithmetic & Compound Assignment Operators */
   Color & operator+=(const Color &rhs);
@@ -51,6 +51,9 @@ class Color
   /* Scalar Mult/Div */
   Color & operator*=(const float &s);
   Color & operator/=(const float &s);
+
+  /* Clamp this Color to [0,1] on all components */
+  Color & clamp();
 };
 
 
@@ -70,5 +73,5 @@ const Color operator/(const Color &v, const float &s);
 
 /* Accessors */
 inline float Color::get_red() const { return r; }
-inline float Color::get_blue() const { return g; }
-inline float Color::get_green() const { return b; }
+inline float Color::get_green() const { return g; }
+inline float Color::get_blue() const { return b; }
