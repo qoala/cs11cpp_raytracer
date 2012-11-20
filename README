@@ -1,0 +1,22 @@
+
+CS11 C++ Advanced: Ray Tracer
+=============================
+
+Written By: Ed Gonzalez  
+
+
+This code will eventually be a ray tracer build for the CS11 C++ Advanced
+track.  Submissions to labs can be found by tag (such as 'lab2' for lab #2).
+
+---------------
+
+The main program can eventually be built with 'make'
+However, as only some base libraries have been written, this builds nothing.
+
+Testing utilities can be built with 'make test', which includes the following:
+* vector_test
+* color_test
+
+Both can be built at once with 'make all-full'
+
+
