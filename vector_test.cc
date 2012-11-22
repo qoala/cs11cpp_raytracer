@@ -320,6 +320,24 @@ TEST(Vector3FTest, Normalize)
   EXPECT_EQ(&v0, &result0);
 }
 
+// Test getting a normalized copy of a Vector
+TEST(Vector3FTest, NormalizeCopy)
+{
+  // Test with all 3 dimensions non-zero;
+  Vector3F v1 = {1, -2, 3};
+  Vector3F result = v1.get_normalized();
+
+  // Result
+  EXPECT_FLOAT_EQ(1/sqrt(14.f), result[0]);
+  EXPECT_FLOAT_EQ(-2/sqrt(14.f), result[1]);
+  EXPECT_FLOAT_EQ(3/sqrt(14.f), result[2]);
+
+  // Check argument unchanged
+  EXPECT_FLOAT_EQ(1, v1[0]);
+  EXPECT_FLOAT_EQ(-2, v1[1]);
+  EXPECT_FLOAT_EQ(3, v1[2]);
+}
+
 
 int main(int argc, char **argv)
 {

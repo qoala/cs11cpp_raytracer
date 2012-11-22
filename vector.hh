@@ -64,6 +64,9 @@ class Vector
   /* Normalize this Vector */
   Vector<E, DIM> & normalize();
 
+  /* Return a normalized copy of this Vector */
+  Vector<E, DIM> get_normalized() const;
+
 };
 
 
@@ -244,6 +247,14 @@ Vector<E, DIM> & Vector<E, DIM>::normalize()
     // Leave vector as-is
     return *this;
   }
+}
+
+/* Return a normalized copy of this Vector */
+template <typename E, unsigned int DIM>
+Vector<E, DIM> Vector<E, DIM>::get_normalized() const
+{
+  Vector<E, DIM> result = *this;
+  return result.normalize();
 }
 
 /* Dot Product */
