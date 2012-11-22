@@ -8,6 +8,9 @@
  *
  */
 
+#ifndef _VECTOR_HH__
+#define _VECTOR_HH__
+
 #include <cassert>
 #include <cmath>
 #include <iostream>
@@ -275,3 +278,5 @@ typedef Vector<double, 3> Vector3D;
 
 /* Vector3F: A 3D vector of floats */
 typedef Vector<float, 3> Vector3F;
+
+#endif

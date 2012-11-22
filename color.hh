@@ -3,6 +3,9 @@
  * An RGB float color representation
  */
 
+#ifndef _COLOR_HH__
+#define _COLOR_HH__
+
 #include <cassert>
 #include <iostream>
 
@@ -75,3 +78,5 @@ const Color operator/(const Color &v, const float &s);
 inline float Color::get_red() const { return r; }
 inline float Color::get_green() const { return g; }
 inline float Color::get_blue() const { return b; }
+
+#endif
