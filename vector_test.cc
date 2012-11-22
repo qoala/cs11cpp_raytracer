@@ -309,7 +309,17 @@ TEST(Vector3FTest, Normalize)
   EXPECT_FLOAT_EQ(1/sqrt(2.f), v4[1]);
   EXPECT_FLOAT_EQ(0, v4[2]);
   EXPECT_EQ(&v4, &result4);
+
+  // Test a 0-length vector
+  Vector3F v0 = {0, 0, 0};
+  Vector3F &result0 = v0.normalize();
+
+  EXPECT_FLOAT_EQ(0, v0[0]);
+  EXPECT_FLOAT_EQ(0, v0[1]);
+  EXPECT_FLOAT_EQ(0, v0[2]);
+  EXPECT_EQ(&v0, &result0);
 }
+
 
 int main(int argc, char **argv)
 {

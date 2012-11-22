@@ -228,7 +228,19 @@ const E Vector<E, DIM>::norm_sq() const
 template <typename E, unsigned int DIM>
 Vector<E, DIM> & Vector<E, DIM>::normalize()
 {
-  return *this /=this->norm();
+  // Calculate norm
+  E n = this->norm();
+
+  // Check for 0-length
+  if (n > 0)
+  {
+    return *this /=this->norm();
+  }
+  else
+  {
+    // Leave vector as-is
+    return *this;
+  }
 }
 
 /* Dot Product */
