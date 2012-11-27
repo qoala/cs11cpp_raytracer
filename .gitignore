@@ -12,6 +12,7 @@ gtest-1.6.0/
 # final programs
 vector_test
 color_test
+intersect_test
 
 # intermediate files
 *.o

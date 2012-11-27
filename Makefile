@@ -32,6 +32,10 @@ VECTEST_OBJS    = $(VECTEST_CXXSRCS:.cc=.o)
 COLORTEST_CXXSRCS = color_test.cc color.cc
 COLORTEST_OBJS    = $(COLORTEST_CXXSRCS:.cc=.o)
 
+INTXNTEST_CXXSRCS  = intersect_test.cc ray.cc color.cc sceneobject.cc
+INTXNTEST_CXXSRCS += sphere.cc plane.cc
+INTXNTEST_OBJS     = $(INTXNTEST_CXXSRCS:.cc=.o)
+
 
 ### Dependencies and generic build rules
 
@@ -42,7 +46,7 @@ DEPS	+= $(patsubst %.cc,deps/%.d,$(COLORTEST_CXXSRCS))
 
 # Programs to build in make 'all', 'test', or 'all-full'
 PROGS	= 
-PROGS_TEST = color_test vector_test
+PROGS_TEST = color_test vector_test intersect_test
 PROGS_FULL = $(PROGS) $(PROGS_TEST)
 
 
@@ -70,6 +74,8 @@ vector_test: $(VECTEST_OBJS)
 color_test: $(COLORTEST_OBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS_TEST)
 
+intersect_test: $(INTXNTEST_OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS_TEST)
 
 ### Build rule templates
 
