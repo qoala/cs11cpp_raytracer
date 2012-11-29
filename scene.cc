@@ -89,7 +89,7 @@ Color Scene::trace_ray(const Ray &r) const
     c += lights[i]->get_color() * so_c * fmax(dot(n, v_l), 0);
   }
 
-  return c;
+  return c.clamp();
 }
 
 // Identify the closest object along a ray
@@ -133,9 +133,9 @@ void Scene::render(const Camera &cam, int img_size, ostream &os) const
   os << "P3 " << img_size << ' ' << img_size << ' ' << MAX_C << endl;
 
   // Iterate through pixels of image
-  for (int x = 0; x < img_size; ++x)
+  for (int y = 0; y < img_size; ++y)
   {
-    for (int y = 0; y < img_size; ++y)
+    for (int x = 0; x < img_size; ++x)
     {
       // Get ray and color for pixel
       Ray r = cam.get_ray_for_pixel(x, y, img_size);

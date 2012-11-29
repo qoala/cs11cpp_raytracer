@@ -18,7 +18,7 @@
 Camera::Camera(const Vector3F &position, const Vector3F &target,
                const Vector3F &in_up, float fov)
   : position(position)
-  , direction(target - direction)
+  , direction(target - position)
   , fov(fov)
 {
   // Normalize direction vector

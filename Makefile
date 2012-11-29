@@ -25,13 +25,22 @@ CXXFLAGS        += -std=c++0x
 
 ### Source file lists for each program
 
+# Src files for the raytracer
+RAYTRACER_CXXSRCS  = rt.cc
+RAYTRACER_CXXSRCS += ray.cc color.cc
+RAYTRACER_CXXSRCS += sceneobject.cc sphere.cc plane.cc
+RAYTRACER_CXXSRCS += scene.cc camera.cc light.cc
+RAYTRACER_OBJS     = $(RAYTRACER_CXXSRCS:.cc=.o);
+
 # Src files for vector_test
 VECTEST_CXXSRCS = vector_test.cc
 VECTEST_OBJS    = $(VECTEST_CXXSRCS:.cc=.o)
 
+# Src files for color_test
 COLORTEST_CXXSRCS = color_test.cc color.cc
 COLORTEST_OBJS    = $(COLORTEST_CXXSRCS:.cc=.o)
 
+# Src files for intersect_test
 INTXNTEST_CXXSRCS  = intersect_test.cc ray.cc color.cc sceneobject.cc
 INTXNTEST_CXXSRCS += sphere.cc plane.cc
 INTXNTEST_OBJS     = $(INTXNTEST_CXXSRCS:.cc=.o)
@@ -45,7 +54,7 @@ DEPS	+= $(patsubst %.cc,deps/%.d,$(COLORTEST_CXXSRCS))
 
 
 # Programs to build in make 'all', 'test', or 'all-full'
-PROGS	= 
+PROGS	= rt
 PROGS_TEST = color_test vector_test intersect_test
 PROGS_FULL = $(PROGS) $(PROGS_TEST)
 
@@ -67,6 +76,9 @@ clean:
 
 
 ### Build rules for programs
+
+rt: $(RAYTRACER_OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 vector_test: $(VECTEST_OBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS_TEST)
