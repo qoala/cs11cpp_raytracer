@@ -28,7 +28,7 @@ class Ray
 
   // Get Point Ray reaches at T
   // Asserts that (t >= 0)
-  Vector3F get_point_at_T(float t);
+  Vector3F get_point_at_t(float t) const;
 };
 
 // === Inline Definitions

@@ -36,14 +36,18 @@ Scene::~Scene()
 
 // Add a SceneObject (allocated on heap)
 // Scene takes responsibility for deleting passed object
-void add_object(SceneObject *so)
+void Scene::add_object(SceneObject *so)
 {
+  assert(so != NULL);
+  objects.push_back(so);
 }
 
 // Add a Light (allocated on heap)
 // Scene takes responsibility for deleting passed object
-void add_light(Light *l)
+void Scene::add_light(Light *l)
 {
+  assert(l != NULL);
+  lights.push_back(l);
 }
 
 

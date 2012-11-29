@@ -18,9 +18,9 @@ Ray::Ray(const Vector3F &orig, const Vector3F &dir, bool normalize)
   assert(dir.norm() > 0);
 }
 
-// Get Point Ray reaches at T
+// Get Point Ray reaches at t
 // Asserts that (t >= 0)
-Vector3F Ray::get_point_at_T(float t)
+Vector3F Ray::get_point_at_t(float t) const
 {
   // Check that t is valid
   assert(t >= 0);
