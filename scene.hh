@@ -11,7 +11,10 @@
 
 #include "sceneobject.hh"
 #include "light.hh"
+#include "camera.hh"
+#include "ray.hh"
 #include <vector>
+#include <iostream>
 
 class Scene
 {
@@ -37,6 +40,22 @@ class Scene
   // Add a Light (allocated on heap)
   // Scene takes responsibility for deleting passed object
   void add_light(Light *l);
+
+
+  // Trace a ray, returning the color of the traced ray.
+  // Returns black if no intersection
+  Color trace_ray(const Ray &r) const;
+
+  // Identify the closest object along a ray
+  // Returns the closest object
+  // Stores the intersection value in output parameter t
+  // If no intersection, sets t to SceneObject::no_intersection
+  // and returns NULL
+  SceneObject * find_closest_object(const Ray &r, float &t) const;
+
+  // Render this Scene using a provided Camera and given image size
+  // Writes output in ppm format to ostream os
+  void render(const Camera &cam, int img_size, std::ostream &os) const;
 };
 
 
