@@ -58,6 +58,8 @@ PROGS	= rt
 PROGS_TEST = color_test vector_test intersect_test
 PROGS_FULL = $(PROGS) $(PROGS_TEST)
 
+# Declare phony build rules
+.PHONY : all test all-full clean
 
 # Default build rule
 # (Main programs)
