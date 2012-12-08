@@ -20,7 +20,7 @@ template <typename E, unsigned int DIM>
 class Vector
 {
   /* Fixed-size array of contents */
-  E data[3];
+  E data[DIM];
 
   public:
 
