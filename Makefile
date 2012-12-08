@@ -59,7 +59,7 @@ PROGS_TEST = color_test vector_test intersect_test
 PROGS_FULL = $(PROGS) $(PROGS_TEST)
 
 # Declare phony build rules
-.PHONY : all test all-full clean
+.PHONY : all test all-full docs clean
 
 # Default build rule
 # (Main programs)
@@ -72,9 +72,14 @@ test: $(PROGS_TEST)
 # (also includes test utilities)
 all-full: $(PROGS_FULL)
 
+docs:
+	doxygen
+
 clean:
-	rm -f *.o deps/*.d $(PROGS_FULL)
+	rm -f deps/*.d *.o $(PROGS_FULL)
+	rm -rf docs/*
 	rmdir deps
+	rmdir docs
 
 
 ### Build rules for programs
