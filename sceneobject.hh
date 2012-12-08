@@ -10,44 +10,52 @@
 #include "color.hh"
 #include "ray.hh"
 
+//! An abstract base class representing an object in a scene
 class SceneObject
 {
-  // Surface color
+  //! Surface color
   Color surface_c;
 
   public:
   // === Constants
 
-  // Return value for no intersection
+  //! Return value for no intersection
   static const float no_intersection;
 
 
   // === Constructors & methods
 
-  // Default constructor
-  // Initializes surface color to gray (0.5, 0.5, 0.5)
+  //! Default constructor (Surface color initialized to gray (0.5, 0.5, 0.5))
   SceneObject();
 
-  // Constructor specifying surface color
+  //! Constructor specifying surface color
   SceneObject(const Color &c);
 
-  // Accessor & Mutator for surface color
+  //! Accessor for surface color
   const Color & get_surface_color() const;
+  //! Mutator to set surface color
   void set_surface_color(const Color &c);
 
-  // Identify first intersection with a ray (Pure-virtual)
-  // Returns t value of intersection
-  // If no intersection occurs, returns SceneObject::no_intersection
+  //! Identify first intersection with a ray
+  /*!
+   * \returns The t value of the nearest intersection
+   *          or SceneObject::no_intersection if there was none.
+   */
   virtual float intersection(const Ray &r) const = 0;
 
-  // Get the normal to the surface at a point p
-  // p is assumed to be on the surface of the SceneObject
-  // returns a normalized direction vector
+  //! Get the surface normal at a point p
+  /*!
+   * \param p A point assumed to be on the object's surface
+   * \returns A normalized direction vector for the surface normal
+   */
   virtual Vector3F get_normal(const Vector3F &p) const = 0;
 
-  // Get the color at a point p
-  // p is assumed to be a point on the surface of the SceneObject
-  // By default, returns the general surface color
+  //! Get the surface color at a point p
+  /*!
+   * By default, returns the object's surface color.
+   * \param p A point assumed to be on the object's surface
+   * \returns The color of the surface point
+   */
   virtual Color get_color(const Vector3F &p) const;
 };
 

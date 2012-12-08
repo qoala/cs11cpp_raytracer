@@ -8,31 +8,29 @@
 
 #include "sceneobject.hh"
 
+//! A SceneObject representing a sphere
 class Sphere : public SceneObject
 {
-  // Position of the Sphere's center
+  //! Position of the Sphere's center
   Vector3F center;
-  // Radius of the Sphere
+  //! Radius of the Sphere
   float radius;
 
   public:
 
-  // Construct a sphere with center c, radius r, and default color
+  //! Construct a sphere with default color
   Sphere(const Vector3F &c, float r);
 
-  // Construct a sphere with center c, radius r, and color col
+  //! Construct a sphere
   Sphere(const Vector3F &c, float r, const Color &col);
 
   // Accessors for members
+  //! Accessor for sphere center
   const Vector3F & get_center() const;
+  //! Accessor for sphere radius
   float get_radius() const;
 
-  // Identify all (up to 2) intersections with a ray
-  // Takes a ray r
-  // Returns the number of intersections [0-2] as a return value
-  // Returns into out-parameter t1 the lowest intersection (if at least 1)
-  // Returns into out-parameter t2 the higher intersection (if 2)
-  // Otherwise t1 and/or t2 will be set to SceneObject::no_intersection
+  //! Identify all (up to 2) intersections with a ray
   int get_intersections(const Ray &r, float &t1, float &t2) const;
 
   // Identify first intersection with a ray

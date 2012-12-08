@@ -1,6 +1,6 @@
-/* ray.hh
+/*! \file
  *
- * A 3-dimensional ray with origin and direction
+ * A simple Ray for tracing 3D scenes
  */
 
 #ifndef _RAY_HH__
@@ -8,32 +8,32 @@
 
 #include "vector.hh"
 
-
+//! A 3-dimensional ray with origin and direction
 class Ray
 {
-  // Origin
+  //! Origin vector
   Vector3F orig;
-  // Direction
+  //! Direction vector
   Vector3F dir;
 
   public:
-  // Constructor
-  // If normalize is true (the default), dir will be normalized
-  // Asserts that direction dir has nonzero norm
+  //! Constructor takes origin and direction vectors
   Ray(const Vector3F &orig, const Vector3F &dir, bool normalize = true);
 
-  // Accessors
+  /* Accessors */
+
+  //! Accessor for ray origin
   const Vector3F & get_orig() const;
+  //! Accessor for ray direction
   const Vector3F & get_dir() const;
 
-  // Get Point Ray reaches at T
-  // Asserts that (t >= 0)
+  //! Calculate position at point t along ray
   Vector3F get_point_at_t(float t) const;
 };
 
 // === Inline Definitions
 
-// Accessors
+/* Accessors */
 inline const Vector3F & Ray::get_orig() const { return orig; }
 inline const Vector3F & Ray::get_dir() const { return dir; }
 

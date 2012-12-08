@@ -9,21 +9,24 @@
 #include "vector.hh"
 #include "color.hh"
 
+//! A simple colored light
 class Light
 {
-  // Position of light
+  //! Position of light
   Vector3F position;
-  // Color of light
+  //! Color of light
   Color color;
 
   public:
   // === Constructors & methods
 
-  // Constructor takes position and color for Light
+  //! Constructor with position and color
   Light(Vector3F p, Color c);
 
   // Accessors
+  //! Accessor for light position
   const Vector3F & get_position() const;
+  //! Accessor for light color
   const Color & get_color() const;
 };
 

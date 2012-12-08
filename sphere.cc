@@ -10,12 +10,21 @@
 using namespace std;
 
 // Construct a sphere with center c, radius r, and default color
+/*!
+ * \param c   Position vector of sphere's center
+ * \param r   Radius of sphere
+ */
 Sphere::Sphere(const Vector3F &c, float r)
   : center(c)
   , radius(r)
 { }
 
 // Construct a sphere with center c, radius r, and color col
+/*!
+ * \param c   Position vector of sphere's center
+ * \param r   Radius of sphere
+ * \param col Surface color of sphere
+ */
 Sphere::Sphere(const Vector3F &c, float r, const Color &col)
   : SceneObject(col)
   , center(c)
@@ -23,11 +32,14 @@ Sphere::Sphere(const Vector3F &c, float r, const Color &col)
 { }
 
 // Identify all (up to 2) intersections with a ray
-// Takes a ray r
-// Returns the number of intersections [0-2] as a return value
-// Returns into out-parameter t1 the lowest intersection (if at least 1)
-// Returns into out-parameter t2 the higher intersection (if 2)
-// Otherwise t1 and/or t2 will be set to SceneObject::no_intersection
+/*!
+ * \param[in]  r  The ray to test for intersection
+ * \param[out] t1 The nearest intersection (if at least 1)
+ *                or SceneObject::no_intersection
+ * \param[out] t2 The further intersection (if 2)
+ *                or SceneObject::no_intersection
+ * \returns       The number of intersections (0 - 2, inclusive)
+ */
 int Sphere::get_intersections(const Ray &r, float &t1, float &t2) const
 {
   // Set up the terms of the quadratic equation a*t^2 + b*t + c == 0

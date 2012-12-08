@@ -1,11 +1,5 @@
-/* vector.hh
- *
- * A N-Dim vector implementation, templated on content type and # of dimensions
- * Element type E should implement:
- * - Construction around 0 and -1
- * - arithmetic operations with itself
- * - sqrt(E) for magnitude
- *
+/*! \file
+ * \brief A templated N-Dim vector implementation.
  */
 
 #ifndef _VECTOR_HH__
@@ -16,92 +10,120 @@
 #include <iostream>
 #include <initializer_list>
 
+//! A N-Dim vector implementation, templated on content type & # of dimensions.
+/*!
+ * \tparam E    Type of contained Elements.
+ *              E should implement:
+ *               - Construction around 0 and -1
+ *               - arithmetic operations with itself
+ *               - E sqrt(E) for magnitude
+ * \tparam DIM  Number of elements in the vector.
+ */
 template <typename E, unsigned int DIM>
 class Vector
 {
-  /* Fixed-size array of contents */
+  //! Fixed-size array of contents
   E data[DIM];
 
   public:
 
-  /* Constructors */
+  // === Constructors
 
-  /* Default constructor initializes with zeros */
+  //! Default constructor (Initializes with zeros)
   Vector();
 
-  /* Initializer List Constructor
-   * (Used as N-argument constructor wouldn't otherwise work)
-   *
-   * Allows such lines as: Vector3D v = {1, 1, 1};
-   */
+  //! Initializer list constructor
   Vector(std::initializer_list<E> init);
 
 
-  /* Subscript Operators (const & non-const)
-   *
-   * Bounds are checked via assertions!
-   */
-  E operator[](unsigned int i) const { assert(i < DIM); return data[i]; }
-  E & operator[](unsigned int i) { assert(i < DIM); return data[i]; }
+  //! Subscript Operator (const)
+  E operator[](unsigned int i) const;
+  //! Subscript Operator (LHS compatible)
+  E & operator[](unsigned int i);
 
   /* Arithmetic & Compound Assignment Operators */
+
+  //! Compound assignment with addition
   Vector<E, DIM> & operator+=(const Vector<E, DIM> &rhs);
+  //! Compound assignment with subtraction
   Vector<E, DIM> & operator-=(const Vector<E, DIM> &rhs);
+  //! Binary addition operator
   const Vector<E, DIM> operator+(const Vector<E, DIM> &other) const;
+  //! Binary subtraction operator
   const Vector<E, DIM> operator-(const Vector<E, DIM> &other) const;
 
-  /* Scalar Mult/Div */
+  //! Compound assignment with scalar multiplication
   Vector<E, DIM> & operator*=(const E &s);
+  //! Compound assignment with scalar division
   Vector<E, DIM> & operator/=(const E &s);
 
-  /* Unary Minus */
+  //! Unary minus operator
   const Vector<E, DIM> operator-();
 
   /* Norm & Norm^2 */
+
+  //! Norm (magnitude) of a vector
   const E norm() const;
+  //! Norm (magnitude) squared of a vector
   const E norm_sq() const;
 
-  /* Normalize this Vector */
+  //! Normalize this vector.
   Vector<E, DIM> & normalize();
 
-  /* Return a normalized copy of this Vector */
+  //! Produce a normalized copy of this Vector.
   Vector<E, DIM> get_normalized() const;
 
 };
 
 
-/* Non-member functions */
+// === Non-member functions
 
-/* Print operator */
+/*! \relates Vector
+ * \brief Print operator
+ */
 template <typename E, unsigned int DIM>
 std::ostream & operator<<(std::ostream &os, const Vector<E, DIM> &v);
 
 /* Scalar Mult/Div */
+
+/*! \relates Vector
+ * \brief Scalar multiplication binary operator
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM> operator*(const Vector<E, DIM> &v, const E &s);
 
+/*! \relates Vector
+ * \brief Scalar multiplication binary operator
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM> operator*(const E &s, const Vector<E, DIM> &v);
 
+/*! \relates Vector
+ * \brief Scalar division binary operator
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM> operator/(const Vector<E, DIM> &v, const E &s);
 
 
-/* Dot Product */
+/*! \relates Vector
+ *\brief Dot Product
+ */
 template <typename E, unsigned int DIM>
 const E dot(const Vector<E, DIM> &v1, const Vector<E, DIM> &v2);
 
-/* Cross Product
- *
- * Only defined for DIM=3
+/*! \relates Vector
+ * \brief Cross Product (DIM==3 only)
  */
 template <typename E>
 const Vector<E, 3> cross(const Vector<E, 3> &v1, const Vector<E, 3> &v2);
 
 
-//// Function Definitions ////
+// === Function Definitions
 
-/* Default Constructor */
+// Default Constructor
+/*!
+ * Initializes all values by constructing E around 0.
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM>::Vector()
 {
@@ -109,7 +131,17 @@ Vector<E, DIM>::Vector()
     data[i] = E(0);
 }
 
-/* Initializer List Constructor */
+// Initializer List Constructor
+/*!
+ * Uses C++11 initializer list syntax to specify elements on construction.
+ * (Used as N-argument constructor wouldn't otherwise work)
+ *
+ * Allows such lines as: Vector3D v = {1, 1, 1};
+ *
+ * Asserts that provided initializer list is of size DIM.
+ *
+ * \param init  A curly braced list of DIM elements of type E.
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM>::Vector(std::initializer_list<E> init)
 {
@@ -122,6 +154,42 @@ Vector<E, DIM>::Vector(std::initializer_list<E> init)
     data[i] = *it;
 }
 
+// Subscript Operator (const)
+/*!
+ * Bounds are checked via assertions!
+ *
+ * \param i Index into the vector.
+ */
+template <typename E, unsigned int DIM>
+inline E Vector<E, DIM>::operator[](unsigned int i) const
+{
+  assert(i < DIM);
+  return data[i];
+}
+// Subscript Operator (LHS compatible)
+/*!
+ * Bounds are checked via assertions!
+ *
+ * \param i Index into the vector.
+ */
+template <typename E, unsigned int DIM>
+inline E& Vector<E, DIM>::operator[](unsigned int i)
+{
+  assert(i < DIM);
+  return data[i];
+}
+
+// Print Operator
+/*! \relates Vector
+ * Writes contents of vector to stream,
+ * bracketed by parentheses and with elements separated by spaces.
+ *
+ * For example, the default Vector will (depending on E) be written as
+ * `"( 0 0 0 )"`
+ *
+ * \param os  ostream to which to write output.
+ * \param v   Vector to write to stream output.
+ */
 template <typename E, unsigned int DIM>
 std::ostream & operator<<(std::ostream &os, const Vector<E, DIM> &v)
 {
@@ -135,6 +203,11 @@ std::ostream & operator<<(std::ostream &os, const Vector<E, DIM> &v)
 }
 
 /* Arithmetic & Compound Assignment Operators */
+
+/*!
+ * \param rhs Other vector to add
+ * \returns   This vector, after adding rhs
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM> & Vector<E, DIM>::operator+=(const Vector<E, DIM> &rhs)
 {
@@ -144,6 +217,10 @@ Vector<E, DIM> & Vector<E, DIM>::operator+=(const Vector<E, DIM> &rhs)
   return *this;
 }
 
+/*!
+ * \param rhs Other vector to subtract
+ * \returns   This vector, after subtracting rhs
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM> & Vector<E, DIM>::operator-=(const Vector<E, DIM> &rhs)
 {
@@ -153,6 +230,10 @@ Vector<E, DIM> & Vector<E, DIM>::operator-=(const Vector<E, DIM> &rhs)
   return *this;
 }
 
+/*!
+ * \param other Other vector to add
+ * \returns     New vector, after adding rhs
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM>
     Vector<E, DIM>::operator+(const Vector<E, DIM> &other) const
@@ -161,6 +242,10 @@ const Vector<E, DIM>
   return result += other;
 }
 
+/*!
+ * \param other Other vector to subtract
+ * \returns     New vector, after subtracting rhs
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM>
     Vector<E, DIM>::operator-(const Vector<E, DIM> &other) const
@@ -170,6 +255,11 @@ const Vector<E, DIM>
 }
 
 /* Scalar Mult/Div */
+
+/*!
+ * \param s Scalar to multiply by
+ * \returns This vector after multiplying by s
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM> & Vector<E, DIM>::operator*=(const E &s)
 {
@@ -179,6 +269,10 @@ Vector<E, DIM> & Vector<E, DIM>::operator*=(const E &s)
   return *this;
 }
 
+/*!
+ * \param s Scalar to divide by
+ * \returns This vector after dividing by s
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM> & Vector<E, DIM>::operator/=(const E &s)
 {
@@ -190,6 +284,11 @@ Vector<E, DIM> & Vector<E, DIM>::operator/=(const E &s)
   return *this;
 }
 
+/*! \relates Vector
+ * \param v Vector to multiply
+ * \param s Scalar to multiply by
+ * \returns New vector, v * s
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM> operator*(const Vector<E, DIM> &v, const E &s)
 {
@@ -197,6 +296,11 @@ const Vector<E, DIM> operator*(const Vector<E, DIM> &v, const E &s)
   return result *= s;
 }
 
+/*! \relates Vector
+ * \param v Vector to multiply
+ * \param s Scalar to multiply by
+ * \returns New vector, v * s
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM> operator*(const E &s, const Vector<E, DIM> &v)
 {
@@ -204,6 +308,11 @@ const Vector<E, DIM> operator*(const E &s, const Vector<E, DIM> &v)
   return result *= s;
 }
 
+/*! \relates Vector
+ * \param v Vector to divide
+ * \param s Scalar to divide by
+ * \returns New vector, v / s
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM> operator/(const Vector<E, DIM> &v, const E &s)
 {
@@ -211,26 +320,43 @@ const Vector<E, DIM> operator/(const Vector<E, DIM> &v, const E &s)
   return result /= s;
 }
 
-/* Unary Minus */
+// Unary Minus
+/*!
+ * \returns This vector, after multiplying by -1.
+ */
 template <typename E, unsigned int DIM>
 const Vector<E, DIM> Vector<E, DIM>::operator-()
 {
   return *this * E(-1);
 }
+
 /* Norm & Norm^2 */
+
+/*!
+ * \returns the Euclidean norm of the vector
+ */
 template <typename E, unsigned int DIM>
 const E Vector<E, DIM>::norm() const
 {
   return std::sqrt(dot(*this, *this));
 }
 
+/*!
+ * Saves an operation over the norm by skipping the square root.
+ *
+ * \returns the square of the Euclidean norm of the vector.
+ */
 template <typename E, unsigned int DIM>
 const E Vector<E, DIM>::norm_sq() const
 {
   return dot(*this, *this);
 }
 
-/* Normalize Vector */
+// Normalize Vector
+/*!
+ * Modifies this vector to have a norm of 1.
+ * \returns This vector (for chaining)
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM> & Vector<E, DIM>::normalize()
 {
@@ -249,7 +375,11 @@ Vector<E, DIM> & Vector<E, DIM>::normalize()
   }
 }
 
-/* Return a normalized copy of this Vector */
+// Return a normalized copy of this Vector
+/*!
+ * \returns A copy of this vector which has been normalized
+ *          to have a norm of 1.
+ */
 template <typename E, unsigned int DIM>
 Vector<E, DIM> Vector<E, DIM>::get_normalized() const
 {
@@ -257,7 +387,12 @@ Vector<E, DIM> Vector<E, DIM>::get_normalized() const
   return result.normalize();
 }
 
-/* Dot Product */
+// Dot Product
+/*! \relates Vector
+ * \param v1  A vector
+ * \param v2  Another vector
+ * \returns   The dot product of the two vectors
+ */
 template <typename E, unsigned int DIM>
 const E dot(const Vector<E, DIM> &v1, const Vector<E, DIM> &v2)
 {
@@ -268,7 +403,12 @@ const E dot(const Vector<E, DIM> &v1, const Vector<E, DIM> &v2)
   return result;
 }
 
-/* Cross Product */
+// Cross Product
+/*! \relates Vector
+ * \param v1  A vector
+ * \param v2  Another vector
+ * \returns   The cross product of the two vectors
+ */
 template <typename E>
 const Vector<E, 3> cross(const Vector<E, 3> &v1, const Vector<E, 3> &v2)
 {
@@ -284,10 +424,10 @@ const Vector<E, 3> cross(const Vector<E, 3> &v1, const Vector<E, 3> &v2)
 
 //// Typedefs of common vector types ////
 
-/* Vector3D: A 3D vector of doubles */
+//! A 3D vector of doubles
 typedef Vector<double, 3> Vector3D;
 
-/* Vector3F: A 3D vector of floats */
+//! A 3D vector of floats
 typedef Vector<float, 3> Vector3F;
 
 #endif

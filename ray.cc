@@ -8,8 +8,14 @@
 
 
 
-// Constructor
-// If normalize is true (the default), dir will be normalized
+// Constructor takes origin and direction vectors
+/*!
+ * Asserts that dir.norm() is nonzero.
+ *
+ * \param orig      Position vector for ray's origin
+ * \param dir       Direction vector for ray
+ * \param normalize Optional flag which normalizes dir if true (the default)
+ */
 Ray::Ray(const Vector3F &orig, const Vector3F &dir, bool normalize)
   : orig(orig)
   , dir(normalize ? dir.get_normalized() : dir)
@@ -19,7 +25,11 @@ Ray::Ray(const Vector3F &orig, const Vector3F &dir, bool normalize)
 }
 
 // Get Point Ray reaches at t
-// Asserts that (t >= 0)
+/*!
+ * Asserts that t is non-negative.
+ * \param t A non-negative value to evaluate the ray at
+ * \returns A position vector of the ray's position at point t
+ */
 Vector3F Ray::get_point_at_t(float t) const
 {
   // Check that t is valid

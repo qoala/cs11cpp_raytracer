@@ -8,29 +8,27 @@
 
 #include "sceneobject.hh"
 
+//! A SceneObject that represents an infinite plane
 class Plane : public SceneObject
 {
-  // Distance from origin
+  //! Distance from origin
   float dist;
-  // Surface normal of plane
+  //! Surface normal of plane
   Vector3F norm;
 
   public:
 
   // === Constructors & methods
 
-  // Construct infinite plane
-  // with distance d, surface normal n, and default color
-  // n is normalized by the constructor
+  //! Construct infinite plane with default color
   Plane(float d, const Vector3F &n);
 
-  // Construct infinite plane
-  // with distance d, surface normal n, and color c
-  // n is normalized by the constructor
+  //! Construct infinite plane
   Plane(float d, const Vector3F &n, const Color &c);
 
-  // Accessors for members
+  //! Accessor for distance from origin
   float get_dist() const;
+  //! Accessor for surface normal
   const Vector3F & get_norm() const;
 
   // Identify first intersection with a ray

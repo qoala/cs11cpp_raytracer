@@ -5,15 +5,22 @@
 
 #include "plane.hh"
 
-// Construct infinite plane
-// with distance d, surface normal n, and default color
+// Construct infinite plane with default color
+/*!
+ * \param d Distance from origin of plane
+ * \param n Normal vector for plane surface (normalized by ctor)
+ */
 Plane::Plane(float d, const Vector3F &n)
   : dist(d)
   , norm(n.get_normalized())
 { }
 
 // Construct infinite plane
-// with distance d, surface normal n, and color c
+/*!
+ * \param d Distance from origin of plane
+ * \param n Normal vector for plane surface (normalized by ctor)
+ * \param c Surface color for plane
+ */
 Plane::Plane(float d, const Vector3F &n, const Color &c)
   : SceneObject(c)
   , dist(d)

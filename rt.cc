@@ -1,6 +1,5 @@
-/* rt.cc
- *
- * Simple ray tracer program
+/*! \file
+ * \brief A simple ray tracer program
  *
  * Draws 3 spheres over a plane, writing in PPM format to std out
  */

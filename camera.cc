@@ -15,6 +15,12 @@
 
 // Constructor takes position, "look-at" target position, "up" vector,
 // and (optionally) horizontal field of view in degrees (default 60).
+/*!
+ * \param position  Position of the camera's origin
+ * \param target    Position at which the camera is pointed
+ * \param in_up     Up vector for vies
+ * \param fov       Horizontal field of view in degrees (optional, default: 60)
+ */
 Camera::Camera(const Vector3F &position, const Vector3F &target,
                const Vector3F &in_up, float fov)
   : position(position)
@@ -38,6 +44,10 @@ Camera::Camera(const Vector3F &position, const Vector3F &target,
 
 
 // Generate a ray for a given pixel 0 <= (x,y) < img_size
+/*!
+ * \param x, y      Pixel coordinates, 0 <= (x,y) < img_size
+ * \param img_size  Pixel dimensions of image (only square images supported)
+ */
 Ray Camera::get_ray_for_pixel(int x, int y, int img_size) const
 {
   Vector3F pixel_dir = distance * direction
