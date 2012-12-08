@@ -37,8 +37,10 @@ void Scene::add_light(SPLight l)
 }
 
 
-// Trace a ray, returning the color of the traced ray.
-// Returns black if no intersection
+// Trace a ray
+/*!
+ * \returns the Color along the traced ray, or black if no intersection.
+ */
 Color Scene::trace_ray(const Ray &r) const
 {
   // Color of ray initially black
@@ -76,11 +78,11 @@ Color Scene::trace_ray(const Ray &r) const
   return c.clamp();
 }
 
-// Identify the closest object along a ray
-// Returns the closest object
-// Stores the intersection value in output parameter t
-// If no intersection, sets t to SceneObject::no_intersection
-// and returns NULL
+/*!
+ * \param[in]  r  Ray to trace along
+ * \param[out] t  Intersection point along ray, or SceneObject::no_intersection
+ * \returns A shared pointer to the closest object, NULL if no intersection
+ */
 SPSceneObject Scene::find_closest_object(const Ray &r, float &t) const
 {
   // Pointer to closest object yet found
@@ -106,8 +108,11 @@ SPSceneObject Scene::find_closest_object(const Ray &r, float &t) const
   return closest;
 }
 
-// Render this Scene using a provided Camera and given image size
-// Writes output in ppm format to ostream os
+/*!
+ * \param cam       Camera from which to render the scene
+ * \param img_size  Pixel dimensions of image (Only square images supported)
+ * \param os        Output stream to write image in ppm format
+ */
 void Scene::render(const Camera &cam, int img_size, ostream &os) const
 {
   // Maximum integer value for colors

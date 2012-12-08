@@ -22,42 +22,39 @@ typedef boost::shared_ptr<SceneObject> SPSceneObject;
 //! Boost Shared Pointer to Light
 typedef boost::shared_ptr<Light> SPLight;
 
+//! A scene representation listing a combination of SceneObjects and Lights.
+/*!
+ * Lights and SceneObjects passed in are dynamically allocated and referenced
+ * using Boost::shared_ptrs.  The shared pointers manage deleting objects.
+ */
 class Scene
 {
-  // Vector of SceneObject pointers
+  //! Vector of SceneObject pointers
   std::vector<SPSceneObject> objects;
 
-  // Vector of Light pointers
+  //! Vector of Light pointers
   std::vector<SPLight> lights;
 
   public:
   // === Constructors/Destructors & methods
 
-  // Default constructor creates an empty scene
+  //! Default constructor creates an empty scene
   Scene();
 
-  // Add a SceneObject (allocated on heap)
-  // Scene takes responsibility for deleting passed object
+  //! Add a SceneObject (allocated on heap)
   void add_object(SPSceneObject so);
 
-  // Add a Light (allocated on heap)
-  // Scene takes responsibility for deleting passed object
+  //! Add a Light (allocated on heap)
   void add_light(SPLight l);
 
 
-  // Trace a ray, returning the color of the traced ray.
-  // Returns black if no intersection
+  //! Trace a ray
   Color trace_ray(const Ray &r) const;
 
-  // Identify the closest object along a ray
-  // Returns the closest object
-  // Stores the intersection value in output parameter t
-  // If no intersection, sets t to SceneObject::no_intersection
-  // and returns NULL
+  //! Identify the closest object along a ray
   SPSceneObject find_closest_object(const Ray &r, float &t) const;
 
-  // Render this Scene using a provided Camera and given image size
-  // Writes output in ppm format to ostream os
+  //! Render this Scene using a provided Camera and given image size
   void render(const Camera &cam, int img_size, std::ostream &os) const;
 };
 
