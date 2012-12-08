@@ -51,6 +51,8 @@ INTXNTEST_OBJS     = $(INTXNTEST_CXXSRCS:.cc=.o)
 # Dependency files
 DEPS	 = $(patsubst %.cc,deps/%.d,$(VECTEST_CXXSRCS))
 DEPS	+= $(patsubst %.cc,deps/%.d,$(COLORTEST_CXXSRCS))
+DEPS	+= $(patsubst %.cc,deps/%.d,$(INTXNTEST_CXXSRCS))
+DEPS	+= $(patsubst %.cc,deps/%.d,$(RAYTRACER_CXXSRCS))
 
 
 # Programs to build in make 'all', 'test', or 'all-full'
