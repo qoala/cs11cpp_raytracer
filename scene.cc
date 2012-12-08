@@ -20,25 +20,9 @@ Scene::Scene()
   , lights()
 { }
 
-// Helper functions for destructor
-// Function to delete SceneObjects
-static void delete_object(SceneObject *so) { delete so; }
-// Function to delete Lights
-static void delete_light(Light *l) { delete l; }
-
-// Destructor deletes contained SceneObjects and Lights 
-Scene::~Scene()
-{
-  // Delete SceneObjects
-  for_each(objects.begin(), objects.end(), ptr_fun(delete_object));
-
-  // Delete Lights
-  for_each(lights.begin(), lights.end(), ptr_fun(delete_light));
-}
-
 // Add a SceneObject (allocated on heap)
 // Scene takes responsibility for deleting passed object
-void Scene::add_object(SceneObject *so)
+void Scene::add_object(SPSceneObject so)
 {
   assert(so != NULL);
   objects.push_back(so);
@@ -46,7 +30,7 @@ void Scene::add_object(SceneObject *so)
 
 // Add a Light (allocated on heap)
 // Scene takes responsibility for deleting passed object
-void Scene::add_light(Light *l)
+void Scene::add_light(SPLight l)
 {
   assert(l != NULL);
   lights.push_back(l);
@@ -63,7 +47,7 @@ Color Scene::trace_ray(const Ray &r) const
   // Position of nearest intersection
   float t;
   // Pointer to closest object
-  SceneObject *so = find_closest_object(r, t);
+  SPSceneObject so = find_closest_object(r, t);
 
   // Return if no intersection
   if (t == SceneObject::no_intersection)
@@ -97,10 +81,10 @@ Color Scene::trace_ray(const Ray &r) const
 // Stores the intersection value in output parameter t
 // If no intersection, sets t to SceneObject::no_intersection
 // and returns NULL
-SceneObject * Scene::find_closest_object(const Ray &r, float &t) const
+SPSceneObject Scene::find_closest_object(const Ray &r, float &t) const
 {
   // Pointer to closest object yet found
-  SceneObject *closest = NULL;
+  SPSceneObject closest = SPSceneObject();
   // Position of nearest intersection (start from max float value)
   t = FLT_MAX;
 

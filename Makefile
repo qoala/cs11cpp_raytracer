@@ -14,8 +14,12 @@ CFLAGS  	= -Wall -g
 CXXFLAGS	= -Wall -g
 
 # add flags for gtest
-CXXFLAGS        += -I gtest
-LDFLAGS_TEST     = -lgtest -lpthread $(LDFLAGS)
+CXXFLAGS       += -I gtest
+LDFLAGS_TEST    = -lgtest -lpthread $(LDFLAGS)
+
+# add flags for boost
+BOOST_INC       = boost
+CXXFLAGS       += -I $(BOOST_INC)
 
 # ISO C++11 standard (or working version fallback for older compilers)
 # (XXX Need an automated test for this)

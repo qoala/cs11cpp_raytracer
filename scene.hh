@@ -15,14 +15,20 @@
 #include "ray.hh"
 #include <vector>
 #include <iostream>
+#include <boost/shared_ptr.hpp>
+
+//! Boost Shared Pointer to SceneObject
+typedef boost::shared_ptr<SceneObject> SPSceneObject;
+//! Boost Shared Pointer to Light
+typedef boost::shared_ptr<Light> SPLight;
 
 class Scene
 {
   // Vector of SceneObject pointers
-  std::vector<SceneObject*> objects;
+  std::vector<SPSceneObject> objects;
 
   // Vector of Light pointers
-  std::vector<Light*> lights;
+  std::vector<SPLight> lights;
 
   public:
   // === Constructors/Destructors & methods
@@ -30,16 +36,13 @@ class Scene
   // Default constructor creates an empty scene
   Scene();
 
-  // Destructor deletes contained SceneObjects and Lights 
-  ~Scene();
-
   // Add a SceneObject (allocated on heap)
   // Scene takes responsibility for deleting passed object
-  void add_object(SceneObject *so);
+  void add_object(SPSceneObject so);
 
   // Add a Light (allocated on heap)
   // Scene takes responsibility for deleting passed object
-  void add_light(Light *l);
+  void add_light(SPLight l);
 
 
   // Trace a ray, returning the color of the traced ray.
@@ -51,7 +54,7 @@ class Scene
   // Stores the intersection value in output parameter t
   // If no intersection, sets t to SceneObject::no_intersection
   // and returns NULL
-  SceneObject * find_closest_object(const Ray &r, float &t) const;
+  SPSceneObject find_closest_object(const Ray &r, float &t) const;
 
   // Render this Scene using a provided Camera and given image size
   // Writes output in ppm format to ostream os

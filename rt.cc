@@ -10,6 +10,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace boost;
 
 int main()
 {
@@ -17,13 +18,19 @@ int main()
 
   // Create some objects & lights and give them to the Scene
   {
-    Plane *pln = new Plane(0, Vector3F({0, 1, 0}), Color(0.5, 0, 0.5));
-    Sphere *s1 = new Sphere(Vector3F({-1.2, 0.5, 0}), 0.5, Color(1, 0, 0));
-    Sphere *s2 = new Sphere(Vector3F({0, 0.5, 0}), 0.5, Color(0, 1, 0));
-    Sphere *s3 = new Sphere(Vector3F({1.2, 0.5, 0}), 0.5, Color(0, 0, 1));
+    SPSceneObject pln = SPSceneObject(new Plane(0, Vector3F({0, 1, 0}),
+                                                Color(0.5, 0, 0.5)));
+    SPSceneObject s1 = SPSceneObject(new Sphere(Vector3F({-1.2, 0.5, 0}),
+                                                0.5, Color(1, 0, 0)));
+    SPSceneObject s2 = SPSceneObject(new Sphere(Vector3F({0, 0.5, 0}),
+                                                0.5, Color(0, 1, 0)));
+    SPSceneObject s3 = SPSceneObject(new Sphere(Vector3F({1.2, 0.5, 0}),
+                                                0.5, Color(0, 0, 1)));
 
-    Light *l1 = new Light(Vector3F({-10, 10, 5}), Color(0.8, 0.8, 0.8));
-    Light *l2 = new Light(Vector3F({5, 3, 5}), Color(0.3, 0.3, 0.3));
+    SPLight l1 = SPLight(new Light(Vector3F({-10, 10, 5}),
+                                   Color(0.8, 0.8, 0.8)));
+    SPLight l2 = SPLight(new Light(Vector3F({5, 3, 5}),
+                                   Color(0.3, 0.3, 0.3)));
 
     scn.add_object(pln);
     scn.add_object(s1);
