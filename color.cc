@@ -179,29 +179,29 @@ Color & Color::clamp()
 // Print operator
 /*! \relates Color
  * Writes contents of color to stream,
- * bracketed by parentheses and with components separated by spaces.
+ * bracketed by square braces and with components separated by spaces.
  *
  * For example, the default Color will be written as
- * `"( 0 0 0 )"`
+ * `"[ 0 0 0 ]"`
  *
  * \param os  ostream to which to write output.
  * \param c   Color to write to stream output.
  */
 std::ostream & operator<<(std::ostream &os, const Color &c)
 {
-  os << "( " << c.get_red() << ' ';
-  os << c.get_green() << ' ' << c.get_blue() << " )";
+  os << "[ " << c.get_red() << ' ';
+  os << c.get_green() << ' ' << c.get_blue() << " ]";
 
   return os;
 }
 
 // Stream-input operator
 /*! \relates Vector
- * Reads contents of color from a stream, "( r g b )"
- * bracketed by parentheses and with elements separated by spaces.
+ * Reads contents of color from a stream, "[ r g b ]"
+ * bracketed by square braces and with elements separated by spaces.
  *
  * For example, black can be read as
- * `"( 0 0 0 )"`
+ * `"[ 0 0 0 ]"`
  *
  * \param      is  istream from which to read output.
  * \param[out] c   Color to read from stream.
@@ -220,7 +220,7 @@ std::istream & operator>>(std::istream &is, Color &c)
 
   // Read leading '('
   is >> ch;
-  if (ch != '(')
+  if (ch != '[')
   {
     is.clear(std::ios_base::failbit);
     return is;
@@ -231,7 +231,7 @@ std::istream & operator>>(std::istream &is, Color &c)
 
   // Read trailing ')'
   is >> ch;
-  if (ch != ')') is.clear(std::ios_base::failbit);
+  if (ch != ']') is.clear(std::ios_base::failbit);
 
   if (is) c = Color(r, g, b);
 

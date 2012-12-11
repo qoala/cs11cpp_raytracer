@@ -221,7 +221,7 @@ TEST(ColorTest, StreamInput)
   Color c = Color();
 
   // String stream of some input
-  istringstream iss("( 0.1 0.5 0.2 )");
+  istringstream iss("[0.1 0.5 0.2]");
 
   iss >> c;
 
