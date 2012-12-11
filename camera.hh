@@ -24,9 +24,15 @@ class Camera
   public:
   // === Constructors & methods
 
+  //! Default Constructor creates an invalid Camera
+  Camera();
+
   //! Constructor takes position, "look-at" target position, & "up" vector
   Camera(const Vector3F &position, const Vector3F &target, const Vector3F &up,
          float fov = 60);
+
+  //! Check if Camera is valid
+  bool valid();
 
   //! Generate a ray for a given pixel
   Ray get_ray_for_pixel(int x, int y, int img_size) const;

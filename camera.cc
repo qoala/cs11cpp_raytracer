@@ -13,6 +13,17 @@
 #define M_PI (3.14159)
 #endif
 
+// Default Constructor creates an invalid Camera
+// (Initializes everything to zero vectors)
+Camera::Camera()
+  : position()
+  , direction()
+  , fov(0)
+  , up()
+  , right()
+  , distance(0)
+{ }
+
 // Constructor takes position, "look-at" target position, "up" vector,
 // and (optionally) horizontal field of view in degrees (default 60).
 /*!
@@ -42,6 +53,19 @@ Camera::Camera(const Vector3F &position, const Vector3F &target,
   distance = 0.5 / tanf((fov * float(M_PI) / 180) / 2);
 }
 
+// Check if Camera is valid
+/*!
+ * Checks 
+ * \returns true if Camera is properly set up for rendering
+ */
+bool Camera::valid()
+{
+  // Due to the vector math, if any input (using direction instead of lookat)
+  // was zero, then "up" will be zero
+  return ((up.norm() == 0)
+          // Additionally check that the render distnace is non-zero
+          || (distance == 0));
+}
 
 // Generate a ray for a given pixel 0 <= (x,y) < img_size
 /*!
