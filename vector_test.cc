@@ -346,7 +346,7 @@ TEST(Vector3FTest, StreamInput)
   Vector3F v1 = Vector3F();
 
   // String stream of some input
-  istringstream iss("( -25 3.5 5e2 )");
+  istringstream iss("(-25 3.5 5e2)");
 
   iss >> v1;
 

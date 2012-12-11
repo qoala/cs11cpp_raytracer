@@ -65,3 +65,39 @@ Vector3F Plane::get_normal(const Vector3F &p) const
   // Surface normal is constant over an infinite plane
   return norm;
 }
+
+/*! \relates Plane
+ * Reads a Plane from the provided input stream in the format:
+ * "dist norm color"
+ *
+ * With the read formats for Vectors & Colors, this looks like:
+ * "dist (x y z) [r g b]"
+ *
+ * \param is  Input stream from which to read a new Plane
+ * \returns   Pointer to a new Plane, or NULL if reading failed
+ */
+SPSceneObject read_Plane(std::istream &is)
+{
+  // Check if stream is already bad
+  if (!is) return SPSceneObject();
+
+  float d;
+  Vector3F n;
+  Color c;
+
+  // Read components
+  is >> d;
+  is >> n;
+  is >> c;
+
+  if (is)
+  {
+    SPSceneObject sso(new Plane(d, n, c));
+
+    return sso;
+  }
+  else
+  {
+    return SPSceneObject();
+  }
+}

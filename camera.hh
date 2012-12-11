@@ -37,3 +37,8 @@ class Camera
   //! Generate a ray for a given pixel
   Ray get_ray_for_pixel(int x, int y, int img_size) const;
 };
+
+/*! \relates Camera
+ * \brief Function to read a Camera from an input stream
+ */
+Camera read_Camera(std::istream &is);

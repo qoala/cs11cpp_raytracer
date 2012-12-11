@@ -8,6 +8,7 @@
 
 #include "vector.hh"
 #include "color.hh"
+#include <boost/shared_ptr.hpp>
 
 //! A simple colored light
 class Light
@@ -29,6 +30,14 @@ class Light
   //! Accessor for light color
   const Color & get_color() const;
 };
+
+//! Boost Shared Pointer to Light
+typedef boost::shared_ptr<Light> SPLight;
+
+/*! \relates Light
+ * \brief Function to read a Light from an input stream
+ */
+SPLight read_Light(std::istream &is);
 
 // === Inline function definitions
 

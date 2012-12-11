@@ -14,7 +14,10 @@
 #endif
 
 // Default Constructor creates an invalid Camera
-// (Initializes everything to zero vectors)
+/*!
+ * Initializes everything to zero vectors or zeros.
+ * (Allows returning an invalid Camera)
+ */
 Camera::Camera()
   : position()
   , direction()
@@ -63,7 +66,7 @@ bool Camera::valid()
   // Due to the vector math, if any input (using direction instead of lookat)
   // was zero, then "up" will be zero
   return ((up.norm() == 0)
-          // Additionally check that the render distnace is non-zero
+          // Additionally check that the render distance is non-zero
           || (distance == 0));
 }
 
@@ -81,3 +84,32 @@ Ray Camera::get_ray_for_pixel(int x, int y, int img_size) const
   return Ray(position, pixel_dir);
 }
 
+/*! \relates Camera
+ * Reads a Camera from the provided input stream in the format:
+ * "position lookat up"
+ *
+ * With the read formats for Vectors, this looks like:
+ * "(px py pz) (lx ly lz) (ux uy uz)"
+ *
+ * \param is  Input stream from which to read a new Plane
+ * \returns   a Camera, (invalid if reading failed)
+ */
+Camera read_Camera(std::istream &is)
+{
+  // Check if stream is already bad
+  if (!is) return Camera();
+
+  Vector3F p;
+  Vector3F l;
+  Vector3F u;
+
+  // Read components
+  is >> p;
+  is >> l;
+  is >> u;
+
+  if (is)
+    return Camera(p, l, u);
+  else
+    return Camera();
+}

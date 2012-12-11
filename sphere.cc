@@ -133,3 +133,39 @@ Vector3F Sphere::get_normal(const Vector3F &p) const
   // normalize the result
   return result.normalize();
 }
+
+/*! \relates Sphere
+ * Reads a Sphere from the provided input stream in the format:
+ * "center radius color"
+ *
+ * With the read formats for Vectors & Colors, this looks like:
+ * "(x y z) radius [r g b]"
+ *
+ * \param is  Input stream from which to read a new Plane
+ * \returns   Pointer to a new Sphere, or NULL if reading failed
+ */
+SPSceneObject read_Sphere(std::istream &is)
+{
+  // Check if stream is already bad
+  if (!is) return SPSceneObject();
+
+  Vector3F pos;
+  float r;
+  Color c;
+
+  // Read components
+  is >> pos;
+  is >> r;
+  is >> c;
+
+  if (is)
+  {
+    SPSceneObject sso(new Sphere(pos, r, c));
+
+    return sso;
+  }
+  else
+  {
+    return SPSceneObject();
+  }
+}

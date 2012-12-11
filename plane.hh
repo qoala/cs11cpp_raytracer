@@ -40,6 +40,11 @@ class Plane : public SceneObject
   Vector3F get_normal(const Vector3F &p) const;
 };
 
+/*! \relates Plane
+ * \brief Function to read a Plane from an input stream
+ */
+SPSceneObject read_Plane(std::istream &is);
+
 // === Inline function definitions
 
 // Accessors for members

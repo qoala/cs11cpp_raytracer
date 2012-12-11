@@ -15,12 +15,6 @@
 #include "ray.hh"
 #include <vector>
 #include <iostream>
-#include <boost/shared_ptr.hpp>
-
-//! Boost Shared Pointer to SceneObject
-typedef boost::shared_ptr<SceneObject> SPSceneObject;
-//! Boost Shared Pointer to Light
-typedef boost::shared_ptr<Light> SPLight;
 
 //! A scene representation listing a combination of SceneObjects and Lights.
 /*!

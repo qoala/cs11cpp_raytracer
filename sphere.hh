@@ -42,6 +42,11 @@ class Sphere : public SceneObject
   Vector3F get_normal(const Vector3F &p) const;
 };
 
+/*! \relates Sphere
+ * \brief Function to read a Sphere from an input stream
+ */
+SPSceneObject read_Sphere(std::istream &is);
+
 // === Inline function definitions
 
 // Accessors for members

@@ -9,6 +9,7 @@
 #include "vector.hh"
 #include "color.hh"
 #include "ray.hh"
+#include <boost/shared_ptr.hpp>
 
 //! An abstract base class representing an object in a scene
 class SceneObject
@@ -58,6 +59,12 @@ class SceneObject
    */
   virtual Color get_color(const Vector3F &p) const;
 };
+
+//! Boost Shared Pointer to SceneObject
+typedef boost::shared_ptr<SceneObject> SPSceneObject;
+
+//! Function type which reads an istream and produces a scene object
+typedef SPSceneObject (*SceneObjectReader)(std::istream &is);
 
 // === Inline function definitions
 
