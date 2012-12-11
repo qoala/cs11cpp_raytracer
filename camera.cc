@@ -65,9 +65,9 @@ bool Camera::valid()
 {
   // Due to the vector math, if any input (using direction instead of lookat)
   // was zero, then "up" will be zero
-  return ((up.norm() == 0)
+  return ((up.norm() != 0)
           // Additionally check that the render distance is non-zero
-          || (distance == 0));
+          && (distance != 0));
 }
 
 // Generate a ray for a given pixel 0 <= (x,y) < img_size
