@@ -195,4 +195,47 @@ std::ostream & operator<<(std::ostream &os, const Color &c)
   return os;
 }
 
+// Stream-input operator
+/*! \relates Vector
+ * Reads contents of color from a stream, "( r g b )"
+ * bracketed by parentheses and with elements separated by spaces.
+ *
+ * For example, black can be read as
+ * `"( 0 0 0 )"`
+ *
+ * \param      is  istream from which to read output.
+ * \param[out] c   Color to read from stream.
+ */
+std::istream & operator>>(std::istream &is, Color &c)
+{
+  // Holding area for read values
+  float r;
+  float g;
+  float b;
+  // Char read from stream
+  char ch;
+
+  // Check that stream isn't already bad
+  if (!is)  return is;
+
+  // Read leading '('
+  is >> ch;
+  if (ch != '(')
+  {
+    is.clear(std::ios_base::failbit);
+    return is;
+  }
+
+  // Read contents
+  is >> r >> g >> b;
+
+  // Read trailing ')'
+  is >> ch;
+  if (ch != ')') is.clear(std::ios_base::failbit);
+
+  if (is) c = Color(r, g, b);
+
+  return is;
+}
+
 

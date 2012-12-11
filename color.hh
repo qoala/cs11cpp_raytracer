@@ -74,9 +74,14 @@ class Color
 // === Non-member functions
 
 /*! \relates Color
- * \brief Print operator
+ * \brief Stream-output operator
  */
 std::ostream & operator<<(std::ostream &os, const Color &c);
+
+/*! \relates Color
+ * \brief Stream-input operator
+ */
+std::istream & operator>>(std::istream &is, Color &c);
 
 /* Scalar Mult/Div */
 

@@ -214,6 +214,22 @@ TEST(ColorTest, ClampTest)
   EXPECT_FLOAT_EQ(1, c4.get_blue());
 }
 
+// Test reading from input
+TEST(ColorTest, StreamInput)
+{
+  // Vectors into which to read values
+  Color c = Color();
+
+  // String stream of some input
+  istringstream iss("( 0.1 0.5 0.2 )");
+
+  iss >> c;
+
+  EXPECT_FLOAT_EQ(0.1, c.get_red());
+  EXPECT_FLOAT_EQ(0.5, c.get_green());
+  EXPECT_FLOAT_EQ(0.2, c.get_blue());
+}
+
 int main(int argc, char **argv)
 {
   // Parse gtest arguments

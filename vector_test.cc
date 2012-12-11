@@ -4,6 +4,7 @@
  */
 
 #include "vector.hh"
+#include "sstream"
 #include <gtest/gtest.h>
 
 using namespace std;
@@ -338,6 +339,21 @@ TEST(Vector3FTest, NormalizeCopy)
   EXPECT_FLOAT_EQ(3, v1[2]);
 }
 
+// Test reading from input
+TEST(Vector3FTest, StreamInput)
+{
+  // Vectors into which to read values
+  Vector3F v1 = Vector3F();
+
+  // String stream of some input
+  istringstream iss("( -25 3.5 5e2 )");
+
+  iss >> v1;
+
+  EXPECT_FLOAT_EQ(-25, v1[0]);
+  EXPECT_FLOAT_EQ(3.5, v1[1]);
+  EXPECT_FLOAT_EQ(500, v1[2]);
+}
 
 int main(int argc, char **argv)
 {

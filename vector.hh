@@ -79,10 +79,16 @@ class Vector
 // === Non-member functions
 
 /*! \relates Vector
- * \brief Print operator
+ * \brief Stream-output operator
  */
 template <typename E, unsigned int DIM>
 std::ostream & operator<<(std::ostream &os, const Vector<E, DIM> &v);
+
+/*! \relates Vector
+ * \brief Stream-input operator
+ */
+template <typename E, unsigned int DIM>
+std::istream & operator>>(std::istream &is, Vector<E, DIM> &v);
 
 /* Scalar Mult/Div */
 
@@ -179,7 +185,7 @@ inline E& Vector<E, DIM>::operator[](unsigned int i)
   return data[i];
 }
 
-// Print Operator
+// Stream-output Operator
 /*! \relates Vector
  * Writes contents of vector to stream,
  * bracketed by parentheses and with elements separated by spaces.
@@ -200,6 +206,54 @@ std::ostream & operator<<(std::ostream &os, const Vector<E, DIM> &v)
   os << ')';
 
   return os;
+}
+
+// Stream-input operator
+/*! \relates Vector
+ * Reads contents of vector from a stream,
+ * bracketed by parentheses and with elements separated by spaces.
+ *
+ * For example, the default Vector can (depending on E) be read as
+ * `"( 0 0 0 )"`
+ *
+ * \param      is  istream from which to read output.
+ * \param[out] v   Vector to read from stream.
+ */
+template <typename E, unsigned int DIM>
+std::istream & operator>>(std::istream &is, Vector<E, DIM> &v)
+{
+  // Holding area for read values
+  E d[DIM];
+  // Char read from stream
+  char ch;
+
+  // Check that stream isn't already bad
+  if (!is)  return is;
+
+  // Read leading '('
+  is >> ch;
+  if (ch != '(')
+  {
+    is.clear(std::ios_base::failbit);
+    return is;
+  }
+
+  // Read contents
+  for (unsigned i = 0; i < DIM; i++)
+    is >> d[i];
+  
+  // Read trailing ')'
+  is >> ch;
+  if (ch != ')') is.clear(std::ios_base::failbit);
+
+  if (is)
+  {
+    // Copy read data into Vector
+    for (unsigned i = 0; i < DIM; i++)
+      v[i] = d[i];
+  }
+
+  return is;
 }
 
 /* Arithmetic & Compound Assignment Operators */
