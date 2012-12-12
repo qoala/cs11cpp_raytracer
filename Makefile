@@ -32,7 +32,7 @@ CXXFLAGS        += -std=c++0x
 # Src files for the raytracer
 RAYTRACER_CXXSRCS  = rt.cc
 RAYTRACER_CXXSRCS += ray.cc color.cc
-RAYTRACER_CXXSRCS += sceneobject.cc sphere.cc plane.cc
+RAYTRACER_CXXSRCS += sceneobject.cc sphere.cc plane.cc cylinder.cc
 RAYTRACER_CXXSRCS += scene.cc camera.cc light.cc
 RAYTRACER_OBJS     = $(RAYTRACER_CXXSRCS:.cc=.o);
 

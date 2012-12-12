@@ -7,6 +7,7 @@
 #include "scene.hh"
 #include "plane.hh"
 #include "sphere.hh"
+#include "cylinder.hh"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -147,6 +148,7 @@ int main()
   // Add types to the mapping
   readFuncs["plane"] = read_Plane;
   readFuncs["sphere"] = read_Sphere;
+  readFuncs["cylinder"] = read_Cylinder;
 
   // Read the scene in from std in description
   Scene scn;
