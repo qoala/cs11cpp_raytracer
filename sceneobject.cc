@@ -12,11 +12,17 @@ const float SceneObject::no_intersection = -1;
 // Initializes surface color to gray (0.5, 0.5, 0.5)
 SceneObject::SceneObject()
   : surface_c(0.5, 0.5, 0.5)
+  , surface_r(0)
 { }
 
 // Constructor specifying surface color
-SceneObject::SceneObject(const Color &c)
+/*!
+ * \param c Color of surface
+ * \param r Reflectivity of surface (defaults to 0)
+ */
+SceneObject::SceneObject(const Color &c, float r)
   : surface_c(c)
+  , surface_r(r)
 { }
 
 // Get the color at a point p

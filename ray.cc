@@ -42,3 +42,24 @@ Vector3F Ray::get_point_at_t(float t) const
 
   return result;
 }
+
+// Reflect Ray
+/*!
+ * \param p Position of intersection with reflective object
+ * \param n Surface normal of object at point of intersection
+ *          (must be normalized)
+ * \param DELTA delta by which to offset origin,
+ *              preventing intersection with the same object again.
+ *              (defaults to 0.0001)
+ * \returns Reflected ray originating from just past p.
+ */
+Ray Ray::reflect(const Vector3F &p, const Vector3F &n, float DELTA) const
+{
+  // New direction negates component in direction of n
+  Vector3F new_dir = dir + 2.f * project(-dir, n);
+
+  // New origin offset from intersection point
+  Vector3F new_orig = p + new_dir * DELTA;
+
+  return Ray(new_orig, new_dir);
+}

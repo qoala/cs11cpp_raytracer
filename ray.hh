@@ -29,6 +29,9 @@ class Ray
 
   //! Calculate position at point t along ray
   Vector3F get_point_at_t(float t) const;
+
+  //! Reflect Ray off of position with surface normal
+  Ray reflect(const Vector3F &p, const Vector3F &n, float DELTA = 0.0001) const;
 };
 
 // === Inline Definitions

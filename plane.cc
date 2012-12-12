@@ -5,7 +5,7 @@
 
 #include "plane.hh"
 
-// Construct infinite plane with default color
+// Construct infinite plane with default color & reflectivity
 /*!
  * \param d Distance from origin of plane
  * \param n Normal vector for plane surface (normalized by ctor)
@@ -15,7 +15,7 @@ Plane::Plane(float d, const Vector3F &n)
   , norm(n.get_normalized())
 { }
 
-// Construct infinite plane
+// Construct infinite plane with default reflectivity
 /*!
  * \param d Distance from origin of plane
  * \param n Normal vector for plane surface (normalized by ctor)
@@ -23,6 +23,19 @@ Plane::Plane(float d, const Vector3F &n)
  */
 Plane::Plane(float d, const Vector3F &n, const Color &c)
   : SceneObject(c)
+  , dist(d)
+  , norm(n.get_normalized())
+{ }
+
+// Construct infinite plane with default reflectivity
+/*!
+ * \param d Distance from origin of plane
+ * \param n Normal vector for plane surface (normalized by ctor)
+ * \param c Surface color for plane
+ * \param r Surface reflectivity for plane
+ */
+Plane::Plane(float d, const Vector3F &n, const Color &c, float r)
+  : SceneObject(c, r)
   , dist(d)
   , norm(n.get_normalized())
 { }
@@ -84,15 +97,17 @@ SPSceneObject read_Plane(std::istream &is)
   float d;
   Vector3F n;
   Color c;
+  float r;
 
   // Read components
   is >> d;
   is >> n;
   is >> c;
+  is >> r;
 
   if (is)
   {
-    SPSceneObject sso(new Plane(d, n, c));
+    SPSceneObject sso(new Plane(d, n, c, r));
 
     return sso;
   }

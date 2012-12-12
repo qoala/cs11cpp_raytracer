@@ -39,11 +39,15 @@ void Scene::add_light(SPLight l)
 
 // Trace a ray
 /*!
- * \returns the Color along the traced ray, or black if no intersection.
+ * \param r         Ray to trace for SceneObjects
+ * \param max_depth Maximum remaining number of intersections allowed
+ *                  (Defaults to 6)
+ * \returns         the Color along the traced ray, or black if no intersection.
  */
-Color Scene::trace_ray(const Ray &r) const
+Color Scene::trace_ray(const Ray &r, unsigned int max_depth) const
 {
   // Color of ray initially black
+  // Color of the surface based on lighting
   Color c = Color(0, 0, 0);
 
   // Position of nearest intersection
@@ -75,7 +79,19 @@ Color Scene::trace_ray(const Ray &r) const
     c += lights[i]->get_color() * so_c * fmax(dot(n, v_l), 0);
   }
 
-  return c.clamp();
+  c.clamp();
+
+  // Surface reflectivity
+  float so_r = so->get_surface_reflectivity();
+  if (so_r != 0 && max_depth > 0)
+  {
+    // Color based on reflection
+    Color reflect_c = trace_ray(r.reflect(pos, n), max_depth - 1);
+
+    return so_r * reflect_c + ((1 - so_r) * c);
+  }
+  else
+    return c;
 }
 
 /*!

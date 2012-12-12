@@ -20,11 +20,14 @@ class Plane : public SceneObject
 
   // === Constructors & methods
 
-  //! Construct infinite plane with default color
+  //! Construct infinite plane with default color & reflectivity
   Plane(float d, const Vector3F &n);
 
-  //! Construct infinite plane
+  //! Construct infinite plane with default reflectivity
   Plane(float d, const Vector3F &n, const Color &c);
+
+  //! Construct infinite plane
+  Plane(float d, const Vector3F &n, const Color &c, float r);
 
   //! Accessor for distance from origin
   float get_dist() const;

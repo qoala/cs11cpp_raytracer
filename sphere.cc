@@ -9,7 +9,7 @@
 
 using namespace std;
 
-// Construct a sphere with center c, radius r, and default color
+// Construct a sphere with center c, radius r, and default color & reflectivity
 /*!
  * \param c   Position vector of sphere's center
  * \param r   Radius of sphere
@@ -19,7 +19,7 @@ Sphere::Sphere(const Vector3F &c, float r)
   , radius(r)
 { }
 
-// Construct a sphere with center c, radius r, and color col
+// Construct a sphere with center c, radius r, color col, and default reflect.
 /*!
  * \param c   Position vector of sphere's center
  * \param r   Radius of sphere
@@ -27,6 +27,19 @@ Sphere::Sphere(const Vector3F &c, float r)
  */
 Sphere::Sphere(const Vector3F &c, float r, const Color &col)
   : SceneObject(col)
+  , center(c)
+  , radius(r)
+{ }
+
+// Construct a Sphere
+/*!
+ * \param c   Position vector of sphere's center
+ * \param r   Radius of sphere
+ * \param col Surface color of sphere
+ * \param ref Surface reflectivity of sphere
+ */
+Sphere::Sphere(const Vector3F &c, float r, const Color &col, float ref)
+  : SceneObject(col, ref)
   , center(c)
   , radius(r)
 { }
@@ -152,15 +165,17 @@ SPSceneObject read_Sphere(std::istream &is)
   Vector3F pos;
   float r;
   Color c;
+  float ref;
 
   // Read components
   is >> pos;
   is >> r;
   is >> c;
+  is >> ref;
 
   if (is)
   {
-    SPSceneObject sso(new Sphere(pos, r, c));
+    SPSceneObject sso(new Sphere(pos, r, c, ref));
 
     return sso;
   }

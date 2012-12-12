@@ -43,7 +43,7 @@ class Scene
 
 
   //! Trace a ray
-  Color trace_ray(const Ray &r) const;
+  Color trace_ray(const Ray &r, unsigned int max_depth = 6) const;
 
   //! Identify the closest object along a ray
   SPSceneObject find_closest_object(const Ray &r, float &t) const;

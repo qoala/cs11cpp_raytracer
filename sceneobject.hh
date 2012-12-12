@@ -17,6 +17,13 @@ class SceneObject
   //! Surface color
   Color surface_c;
 
+  //! Surface reflectivity
+  /*!
+   * Ranges from 0 to 1, with 0 being completely unreflective,
+   * and 1 being completely reflective.
+   */
+  float surface_r;
+
   public:
   // === Constants
 
@@ -29,13 +36,17 @@ class SceneObject
   //! Default constructor (Surface color initialized to gray (0.5, 0.5, 0.5))
   SceneObject();
 
-  //! Constructor specifying surface color
-  SceneObject(const Color &c);
+  //! Constructor specifying surface color and reflectivity
+  SceneObject(const Color &c, float r = 0);
 
   //! Accessor for surface color
   const Color & get_surface_color() const;
+  //! Accessor for surface reflectivity
+  float get_surface_reflectivity() const;
   //! Mutator to set surface color
   void set_surface_color(const Color &c);
+  //! Mutator to set surface reflectivity
+  void set_surface_reflectivity(float r);
 
   //! Identify first intersection with a ray
   /*!
@@ -68,7 +79,7 @@ typedef SPSceneObject (*SceneObjectReader)(std::istream &is);
 
 // === Inline function definitions
 
-// Accessor & Mutator for surface color
+// Accessor & Mutator for surface color & reflectivity
 inline const Color & SceneObject::get_surface_color() const
 {
   return surface_c;
@@ -76,6 +87,14 @@ inline const Color & SceneObject::get_surface_color() const
 inline void SceneObject::set_surface_color(const Color &c)
 {
   surface_c = c;
+}
+inline float SceneObject::get_surface_reflectivity() const
+{
+  return surface_r;
+}
+inline void SceneObject::set_surface_reflectivity(float r)
+{
+  surface_r = r;
 }
 
 #endif

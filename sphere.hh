@@ -18,11 +18,14 @@ class Sphere : public SceneObject
 
   public:
 
-  //! Construct a sphere with default color
+  //! Construct a sphere with default color & reflectivity
   Sphere(const Vector3F &c, float r);
 
-  //! Construct a sphere
+  //! Construct a sphere with default reflectivity
   Sphere(const Vector3F &c, float r, const Color &col);
+
+  //! Construct a sphere
+  Sphere(const Vector3F &c, float r, const Color &col, float ref);
 
   // Accessors for members
   //! Accessor for sphere center
