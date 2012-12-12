@@ -58,7 +58,7 @@ class Vector
   Vector<E, DIM> & operator/=(const E &s);
 
   //! Unary minus operator
-  const Vector<E, DIM> operator-();
+  const Vector<E, DIM> operator-() const;
 
   /* Norm & Norm^2 */
 
@@ -122,6 +122,12 @@ const E dot(const Vector<E, DIM> &v1, const Vector<E, DIM> &v2);
  */
 template <typename E>
 const Vector<E, 3> cross(const Vector<E, 3> &v1, const Vector<E, 3> &v2);
+
+/*! \relates Vector
+ * \brief Projection of Vector v1 onto Vector v2
+ */
+template <typename E, unsigned int DIM>
+const Vector<E, DIM> project(const Vector<E, DIM> &v1, const Vector<E, 3> &v2);
 
 
 // === Function Definitions
@@ -379,7 +385,7 @@ const Vector<E, DIM> operator/(const Vector<E, DIM> &v, const E &s)
  * \returns This vector, after multiplying by -1.
  */
 template <typename E, unsigned int DIM>
-const Vector<E, DIM> Vector<E, DIM>::operator-()
+const Vector<E, DIM> Vector<E, DIM>::operator-() const
 {
   return *this * E(-1);
 }
@@ -473,6 +479,18 @@ const Vector<E, 3> cross(const Vector<E, 3> &v1, const Vector<E, 3> &v2)
     result[2] = (v1[0] * v2[1]) - (v1[1] * v2[0]);
 
     return result;
+}
+
+// Projection
+/*! \relates Vector
+ * \param v1  Vector to project
+ * \param v2  Vector to project onto
+ * \returns   The projection of v1 onto v2
+ */
+template <typename E, unsigned int DIM>
+const Vector<E, DIM> project(const Vector<E, DIM> &v1, const Vector<E, 3> &v2)
+{
+  return (dot(v1, v2) / dot(v2, v2)) * v2;
 }
 
 

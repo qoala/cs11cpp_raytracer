@@ -339,6 +339,20 @@ TEST(Vector3FTest, NormalizeCopy)
   EXPECT_FLOAT_EQ(3, v1[2]);
 }
 
+// Test vector projection
+TEST(Vector3FTest, Projection)
+{
+  Vector3F v1 = {3, 2, 0};
+  Vector3F v2 = {0, 5, 0};
+
+  Vector3F result = project(v1, v2);
+
+  EXPECT_FLOAT_EQ(0, result[0]);
+  EXPECT_FLOAT_EQ(2, result[1]);
+  EXPECT_FLOAT_EQ(0, result[2]);
+}
+
+
 // Test reading from input
 TEST(Vector3FTest, StreamInput)
 {
@@ -354,7 +368,6 @@ TEST(Vector3FTest, StreamInput)
   EXPECT_FLOAT_EQ(3.5, v1[1]);
   EXPECT_FLOAT_EQ(500, v1[2]);
 }
-
 int main(int argc, char **argv)
 {
   // Parse gtest arguments
