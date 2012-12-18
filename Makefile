@@ -107,7 +107,7 @@ intersect_test: $(INTXNTEST_OBJS)
 # Generate dependency files
 deps/%.d : %.cc
 	mkdir -p deps
-	$(MAKEDEPEND) -o $@ $<
+	$(MAKEDEPEND) $(CXXFLAGS) -o $@ $<
 
 include $(DEPS)
 
