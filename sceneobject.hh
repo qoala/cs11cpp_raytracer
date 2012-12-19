@@ -39,6 +39,9 @@ class SceneObject
   //! Constructor specifying surface color and reflectivity
   SceneObject(const Color &c, float r = 0);
 
+  //! Virtual Destructor
+  virtual ~SceneObject();
+
   //! Accessor for surface color
   const Color & get_surface_color() const;
   //! Accessor for surface reflectivity

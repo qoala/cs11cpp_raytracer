@@ -11,7 +11,7 @@ CC	= gcc
 CXX	= g++
 MAKEDEPEND	= $(CXX) -M
 CFLAGS  	= -Wall -g
-CXXFLAGS	= -Wall -g
+CXXFLAGS	= -Wall -Wnon-virtual-dtor -g
 
 # add flags for gtest
 CXXFLAGS       += -I gtest

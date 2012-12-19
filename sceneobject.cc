@@ -25,6 +25,10 @@ SceneObject::SceneObject(const Color &c, float r)
   , surface_r(r)
 { }
 
+// Virtual Destructor
+SceneObject::~SceneObject()
+{ }
+
 // Get the color at a point p
 // p is assumed to be a point on the surface of the SceneObject
 // By default, returns the general surface color
